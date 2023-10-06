@@ -1,0 +1,10 @@
+{
+    "name": "irs-copilot-api",
+    "license": "UNLICENSED",
+    "scripts": {
+        "api": "yarn api:dev",
+        "api:dev": "yarn api-v0",
+        "api-v0": "cd packages/python/api-v0 && gunicorn --reload app:app",
+        "api-flask": "cd packages/python/api-flask && gunicorn main:app" 
+    }
+}
