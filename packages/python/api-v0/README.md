@@ -18,6 +18,8 @@
 - Create credentials directory
 - Checkout credentials_example directory
 
+### Import HTTP request JSON for [Insomnia](https://insomnia.rest/download) 
+
 ## Run
 
 ```gunicorn app:app```
