@@ -1,12 +1,5 @@
-import firebase_admin
-from firebase_admin import credentials, firestore
-
-# Initialize Firebase Admin SDK
-credentials = credentials.Certificate("./credentials/firebase/irscopilot-dev-firebase-adminsdk-72ar9-0b73aebc83.json")
-firebase_admin.initialize_app(credentials)
-
-# Firestore database instance
-firestore_db  = firestore.client()
+from datetime import datetime
+from db.firebase import firestore_db
 
 def query_conversations_by_user_id(user_id):
     user_ref = firestore_db.collection('users').document(user_id)
@@ -40,3 +33,22 @@ def query_conversations_by_user_id(user_id):
         'user_id': user_id,
         'conversations': conversations_with_messages
     }
+
+# Need to now write code that writes conversations from gpt3 prompts and responses.
+def store_messages_by_conversations_id(user_id, conversation_id, message_data):
+
+    user_ref = firestore_db.collection('users').document(user_id)
+    conversation_ref = user_ref.collection('conversations').document(conversation_id)
+
+    # Construct the message dictionary
+    message_id = "message_data.get('id')"
+    message = {
+        'id': message_id,
+        'text': message_data,
+        'type': 'user',
+        'created_at': datetime.utcnow()
+    }
+
+    # Add the message to the conversation
+    conversation_ref.collection('messages').document(message_id).set(message)
+    return message
