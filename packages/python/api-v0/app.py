@@ -2,8 +2,9 @@ import json
 from flask import Flask, jsonify, request
 import openai
 
-from routes.gpt import gpt
-from routes.firebase import firebase
+from controllers.openai import openai_controller
+from controllers.firebase import firebase_controller
+from controllers.user import user_controller
 
 def create_app():
 
@@ -13,8 +14,9 @@ def create_app():
     openai_api_key = app.config['OPENAI_API_KEY']
     openai.api_key = openai_api_key
 
-    app.register_blueprint(gpt, url_prefix='/gpt')
-    app.register_blueprint(firebase, url_prefix='/firebase')
+    app.register_blueprint(openai_controller, url_prefix='/openai')
+    app.register_blueprint(firebase_controller, url_prefix='/firebase')
+    app.register_blueprint(user_controller, url_prefix='/users')
 
     @app.route('/')
     def health():
