@@ -22,7 +22,8 @@ class User:
         
         user_ref = self.collection_ref.document(self.user_id)
         user_ref.set(user)
-        return user_ref
+        # return user_ref
+        return self.user_id
 
 class Conversation:
 
@@ -56,7 +57,8 @@ class Conversation:
         'conversations': firestore.ArrayUnion([conversation_ref])
         })
 
-        return conversation_ref
+        # return conversation_ref
+        return self.id
 
 class Message:
 
@@ -91,4 +93,5 @@ class Message:
             'messages': firestore.ArrayUnion([message_ref])
         })
 
-        return message_ref
+        # return message_ref
+        return self.id

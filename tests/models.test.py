@@ -15,17 +15,20 @@ def create_message(user_id, conversation_id, content, role):
 
 def create_user_conversation_message():
     user = create_user()
-    user_id = user.get().to_dict().get('id')
+    # user_id = user.get().to_dict().get('id')
+    user_id = user
     print('user_id', user_id)
 
     conversation = create_conversation(user_id)
-    conversation_id = conversation.get().to_dict().get('id')
+    # conversation_id = conversation.get().to_dict().get('id')
+    conversation_id = conversation
     print('conversation_id', conversation_id)
 
-    content = 'Hello Perkins, what is a 1040?'
+    content = 'Hello Jarvies, what is a 1099?'
     role = 'user'
     message = create_message(user_id, conversation_id, content, role)
-    message_id = message.get().to_dict().get('id')
+    # message_id = message.get().to_dict().get('id')
+    message_id = message
     print('message_id', message_id)
 
 create_user_conversation_message()
