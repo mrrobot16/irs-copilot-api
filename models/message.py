@@ -9,7 +9,6 @@ class Message:
         self.db = db
         self.collection_ref = self.db.collection('messages')
 
-
     def create(self, user_id, conversation_id, content, role):
 
         self.id = generate_unique_id()
@@ -17,7 +16,7 @@ class Message:
         self.user_id = user_id
         self.conversation_id = conversation_id
         self.content = content
-        self.role = role
+        self.role = role # role can only be 'system', 'assistant' or 'user' 
 
         message = {
             'id': self.id,
@@ -25,7 +24,7 @@ class Message:
             'conversation_id': self.conversation_id,
             'created_at': self.created_at,
             'content': self.content,
-            'role': self.role # role can only be 'system', 'assistant' or 'user' 
+            'role': self.role 
         }
 
         message_ref = self.collection_ref.document(self.id)

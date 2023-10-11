@@ -20,3 +20,9 @@ def update_user(id, email, password = None):
 
 def delete_user(id):
     return user.delete(id)
+
+def deactivate_user(id):
+    return user.deactivate(id)
+
+def activate_user(id):
+    return user.activate(id)
