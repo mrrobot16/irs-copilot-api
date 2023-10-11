@@ -19,11 +19,6 @@ class User:
         # Convert each DocumentSnapshot to a dictionary and add it to a list
         user_list = [user.to_dict() for user in users]
         return user_list
-
-    def get(self, id):
-        user_ref = self.collection_ref.document(id)
-        user = user_ref.get()
-        return user.to_dict() # return user object versus firebase user reference to reduce the amount of reads/writes.
     
     def new(self, email = None, password = None, conversations = []):
         self.id = generate_unique_id()  # Generate a unique 20-character ID
@@ -46,7 +41,7 @@ class User:
         user_ref.set(user)
         return user # return user object versus firebase user reference to reduce the amount of reads/writes.
     
-    def get_by_id(self, id):
+    def get(self, id):
         # Suppress "Prefer using the 'filter' keyword argument instead." warning. 
         # This happens when using collection_ref.where()
         warnings.filterwarnings("ignore", category=UserWarning, message="Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.")
@@ -61,3 +56,19 @@ class User:
         # NOTE: collection_ref.where returns an array of documents. 
         # We only want the first document in the array.
         return user_list[0]
+    
+    def update(self, id, email, password = None):
+        self.id = id
+        self.email = email
+        self.updated_at = generate_timestamp()
+        # self.password = hash_password(password) if password else hash_password(self.email)
+        user = {
+            'id': self.id,
+            'email': self.email,
+            # 'password': str(self.password),
+            'updated_at': self.updated_at
+        }
+        # Here, you can use the set method with merge=True to update or create if the document doesn't exist
+        users_ref = self.collection_ref.document(self.id)
+        users_ref.set(user, merge=True)
+        return user

@@ -8,9 +8,12 @@ def get_users():
     users = user.get_all()
     return convert_doc_refs(users)
 
-def new_user(email, password = None):
+def new_user(email, password):
     return user.new(email)
 
 def get_user(id):
-    user_by_id = user.get_by_id(id)
+    user_by_id = user.get(id)
     return convert_doc_refs(user_by_id)
+
+def update_user(id, email, password = None):
+    return user.update(id, email, password)
