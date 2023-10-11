@@ -20,6 +20,22 @@ class User:
         user_list = [user.to_dict() for user in users]
         return user_list
     
+    def get(self, id):
+        # Suppress "Prefer using the 'filter' keyword argument instead." warning. 
+        # This happens when using collection_ref.where()
+        warnings.filterwarnings("ignore", category=UserWarning, message="Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.")
+
+        # Query the collection where 'id' is equal to user_id
+        users = self.collection_ref.where('id', '==', id).limit(1).stream()
+
+        # Users is an iterator of DocumentSnapshot
+        # Converting DocumentSnapshot to a dictionary
+        
+        user_list = [user.to_dict() for user in users]
+        # NOTE: collection_ref.where returns an array of documents. 
+        # We only want the first document in the array.
+        return user_list[0]
+    
     def new(self, email = None, password = None, conversations = []):
         self.id = generate_unique_id()  # Generate a unique 20-character ID
         print(self.id)
@@ -41,22 +57,6 @@ class User:
         user_ref.set(user)
         return user # return user object versus firebase user reference to reduce the amount of reads/writes.
     
-    def get(self, id):
-        # Suppress "Prefer using the 'filter' keyword argument instead." warning. 
-        # This happens when using collection_ref.where()
-        warnings.filterwarnings("ignore", category=UserWarning, message="Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.")
-
-        # Query the collection where 'id' is equal to user_id
-        users = self.collection_ref.where('id', '==', id).limit(1).stream()
-
-        # Users is an iterator of DocumentSnapshot
-        # Converting DocumentSnapshot to a dictionary
-        
-        user_list = [user.to_dict() for user in users]
-        # NOTE: collection_ref.where returns an array of documents. 
-        # We only want the first document in the array.
-        return user_list[0]
-    
     def update(self, id, email, password = None):
         self.id = id
         self.email = email
@@ -71,4 +71,13 @@ class User:
         # Here, you can use the set method with merge=True to update or create if the document doesn't exist
         users_ref = self.collection_ref.document(self.id)
         users_ref.set(user, merge=True)
+        return user
+
+    def delete(self, id):
+        self.id = id
+        user = {
+            'id': self.id
+        }
+        users_ref = self.collection_ref.document(self.id)
+        users_ref.delete()
         return user

@@ -17,3 +17,6 @@ def get_user(id):
 
 def update_user(id, email, password = None):
     return user.update(id, email, password)
+
+def delete_user(id):
+    return user.delete(id)
