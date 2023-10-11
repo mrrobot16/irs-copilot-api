@@ -8,7 +8,6 @@ firebase_controller = Blueprint('firebase_controller', __name__)
 def health():
     return jsonify({'status': 'ok'})
 
-
 @firebase_controller.route('/query_conversations_by_user_id', methods=['POST'])
 def query_conversations_by_user():
     user_id = request.get_json()['user_id']

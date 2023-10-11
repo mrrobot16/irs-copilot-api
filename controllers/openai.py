@@ -9,7 +9,6 @@ openai_controller = Blueprint('openai_controller', __name__)
 def health():
     return jsonify({'status': 'ok'})
 
-
 @openai_controller.route('/chat', methods=['POST'])
 def chat():
     prompt = request.get_json()['prompt']
