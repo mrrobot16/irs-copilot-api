@@ -39,6 +39,12 @@ class User:
         users_ref = self.collection_ref.document(self.id)
         users_ref.set(user, merge=True)
         return user
+    
+    def delete(self, id):
+        self.id = id
+        users_ref = self.collection_ref.document(self.id)
+        users_ref.delete()
+        return self.id
 class Conversation:
 
     def __init__(self, db):

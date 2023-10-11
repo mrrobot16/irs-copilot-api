@@ -17,9 +17,14 @@
 ### Credentials folder
 - Create credentials directory
 - Checkout credentials_example directory
+- Make sure you have firebase credentials json file
 
 ### Import HTTP request JSON for [Insomnia](https://insomnia.rest/download) 
+- Check out json-requests-exports directory
 
-## Run
+## Run prod
 
 ```gunicorn app:app```
+
+## Run dev
+```gunicorn --reload app:app```
