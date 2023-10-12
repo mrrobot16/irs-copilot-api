@@ -1,14 +1,39 @@
-
 import pytest
 from models.user import User
-from tests.fixtures.models.user_data import user_data
+from tests.fixtures.models.user import user_fixture
 from db.firebase import firestore_db
-from utils import hash_password
+from utils.firebase import convert_doc_refs
 
-def test_create_user():
-    user = User(firestore_db)
-    user.new(user_data["email"], user_data["password"], user_data["conversations"])
-    user = user.new(user_data["email"], user_data["password"], user_data["conversations"])
-    assert user['email'] == "johndoe@example.com"
-    assert user['conversations'] == []
+user = User(firestore_db)
 
+def test_get_all():
+    users = user.get_all()
+    assert len(users) > 0
+
+def test_new():
+    # print(user)
+    new_user = user.new(user_fixture["email"], user_fixture["password"], user_fixture["conversations"])
+    new_user = user.get(new_user["id"])
+    assert new_user['email'] == "johndoe@example.com"
+    assert new_user['conversations'] == []
+
+def test_get():
+    id = '0c70f67e-da6a-4c4c-b'
+    get_user = user.get(id)
+    assert get_user['id'] == id
+
+def test_update():
+    id = '0c70f67e-da6a-4c4c-b'
+    email = 'testing_model_update_email2222222222222@testing.com'
+    user.update(id, email)
+    assert user.get(id)['email'] == "testing_model_update_email2222222222222@testing.com"
+
+def test_deactivate_user():
+    id = '0c70f67e-da6a-4c4c-b'
+    user.deactivate(id)
+    assert user.get(id)['active'] == False
+
+def test_activate_user():
+    id = '0c70f67e-da6a-4c4c-b'
+    user.activate(id)
+    assert user.get(id)['active'] == True
