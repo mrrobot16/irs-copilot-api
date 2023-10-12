@@ -46,3 +46,9 @@ def test_deactivate(client):
     user_id = "8643a936-3a4e-454b-a"
     response = client.put(f"/users/deactivate/{user_id}")
     assert response.status_code == 200
+
+def test_activate(client):
+    time.sleep(3)
+    user_id = "8643a936-3a4e-454b-a"
+    response = client.put(f"/users/activate/{user_id}")
+    assert response.status_code == 200
