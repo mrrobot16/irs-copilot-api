@@ -4,3 +4,10 @@ user_fixture = {
     "password": "password",
     "conversations": []
 }
+
+emails = [
+    "h@testng.com",
+    "i@testng.com",
+    "j@testng.com",
+    "k@testng.com",
+]

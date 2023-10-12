@@ -3,13 +3,7 @@ import random
 
 from db.firebase import firestore_db, firestore
 from services.user import get_users, new_user, get_user, update_user, delete_user, deactivate_user, activate_user
-
-emails = [
-    "h@testng.com",
-    "i@testng.com",
-    "j@testng.com",
-    "k@testng.com",
-]
+from tests.fixtures.models.user import emails
 
 random_email = emails[random.randint(0, len(emails) - 1)]
 

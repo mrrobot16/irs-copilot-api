@@ -3,12 +3,7 @@ import random
 
 from controllers.user import user_controller
 
-emails = [
-    "h@testng.com",
-    "i@testng.com",
-    "j@testng.com",
-    "k@testng.com",
-]
+from tests.fixtures.models.user import emails
 
 random_email = emails[random.randint(0, len(emails) - 1)]
 

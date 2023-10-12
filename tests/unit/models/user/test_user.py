@@ -4,15 +4,9 @@ import random
 from models.user import User
 from tests.fixtures.models.user import user_fixture
 from db.firebase import firestore_db
+from tests.fixtures.models.user import emails
 
 user = User(firestore_db)
-
-emails = [
-    "h@testng.com",
-    "i@testng.com",
-    "j@testng.com",
-    "k@testng.com",
-]
 
 random_email = emails[random.randint(0, len(emails) - 1)]
 
