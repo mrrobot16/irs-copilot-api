@@ -1,6 +1,4 @@
-import pytest
 from controllers.user import user_controller
-# from tests.fixtures.models import user_data
 
 def test_health(client):
     response = client.get("/users/health")
