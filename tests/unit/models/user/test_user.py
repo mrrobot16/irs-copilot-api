@@ -23,9 +23,9 @@ def test_get():
 
 def test_update():
     id = '0c70f67e-da6a-4c4c-b'
-    email = 'testing_model_update_email2222222222222@testing.com'
+    email = 'update_johndoe@testing.com'
     user.update(id, email)
-    assert user.get(id)['email'] == "testing_model_update_email2222222222222@testing.com"
+    assert user.get(id)['email'] == 'update_johndoe@testing.com'
 
 def test_deactivate_user():
     id = '0c70f67e-da6a-4c4c-b'

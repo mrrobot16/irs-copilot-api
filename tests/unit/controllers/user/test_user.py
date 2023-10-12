@@ -1,4 +1,16 @@
+import time
+import random
+
 from controllers.user import user_controller
+
+emails = [
+    "h@testng.com",
+    "i@testng.com",
+    "j@testng.com",
+    "k@testng.com",
+]
+
+random_email = emails[random.randint(0, len(emails) - 1)]
 
 def test_health(client):
     response = client.get("/users/health")
@@ -16,7 +28,7 @@ def test_get(client):
 def test_new(client):
     json = {
         "name": "test_name",
-        "email": "test_new_user@testmail.com",
+        "email": "test_controller_new_email@testing.com",
         "password": "test_password"
     }
     response = client.post("/users/new", json=json)
@@ -25,7 +37,7 @@ def test_new(client):
 def test_update(client):
     user_id = "8643a936-3a4e-454b-a"
     json = {
-        "email": "update_email@testemail.com",
+        "email": random_email,
     }
     response = client.put(f"/users/update/{user_id}", json=json)
     assert response.status_code == 200
