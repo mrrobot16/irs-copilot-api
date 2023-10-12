@@ -1,6 +1,5 @@
 from models.conversation import Conversation
 from db.firebase import firestore_db, firestore
-from utils.firebase import convert_doc_refs
 
 conversation = Conversation(firestore_db)
 
@@ -14,6 +13,9 @@ def get_conversations_by_user(user_id):
 
 def new_conversation(user_id, message):
     return conversation.new(user_id, message)
+
+def new_message(user_id, conversation_id, message):
+    return conversation.new_message(user_id, conversation_id, message)
 
 def get_conversation(id):
     conversation = Conversation(firestore_db)

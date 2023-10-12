@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user
-from services.message import new_message
+from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user, new_message
 
 conversation_controller = Blueprint('conversation_', __name__)
 
