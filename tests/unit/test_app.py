@@ -1,5 +1,3 @@
-import json
-
 def test_health(client):
     response = client.get('/')
     print('test_health(client): response', response)
