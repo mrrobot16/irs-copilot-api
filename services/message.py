@@ -1,6 +1,8 @@
-from models.message import Message
-from db.firebase import firestore_db
+from models.conversation import Conversation
+from db.firebase import firestore_db, firestore
+from utils.firebase import convert_doc_refs
 
-def create_message(user_id, conversation_id, content, role):
-    message = Message(firestore_db, user_id, conversation_id)
-    return message.create(user_id, conversation_id, content, role)
+conversation = Conversation(firestore_db)
+
+def new_message(user_id, conversation_id, message):
+    return conversation.new_message(user_id, conversation_id, message)
