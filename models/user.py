@@ -37,7 +37,8 @@ class User:
         user_list = [user.to_dict() for user in users]
         # NOTE: collection_ref.where returns an array of documents.
         # We only want the first document in the array.
-        return user_list[0]
+
+        return user_list[0] if user_list else None
 
     def new(self, email = None, password = None, conversations = []):
         self.id = generate_unique_id()  # Generate a unique 20-character ID
