@@ -26,7 +26,7 @@ class User:
         return user_list
 
     def get(self, id):
-        # Suppress "Prefer using the 'filter' keyword argument instead." warning.
+        # NOTE: Suppress "Prefer using the 'filter' keyword argument instead." warning.
         # This happens when using collection_ref.where()
         warnings.filterwarnings("ignore", category=UserWarning, message="Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead.")
 
@@ -59,10 +59,11 @@ class User:
             'updated_at': self.updated_at
         }
 
-        # Add the user to the 'users' collection
+        # NOTE: Add the user to the 'users' collection
         user_ref = self.collection_ref.document(self.id)
         user_ref.set(user)
-        return user # return user object versus firebase user reference to reduce the amount of reads/writes.
+        # NOTE: return user object versus firebase user reference to reduce the amount of reads/writes.
+        return user['id'] 
 
     def update(self, id, email, password = None):
         self.id = id
@@ -75,7 +76,8 @@ class User:
             # 'password': str(self.password),
             'updated_at': self.updated_at
         }
-        # Here, you can use the set method with merge=True to update or create if the document doesn't exist
+
+        # NOTE: Here, you can use the set method with merge=True to update or create if the document doesn't exist
         users_ref = self.collection_ref.document(self.id)
         users_ref.set(user, merge=True)
         return user
@@ -87,7 +89,7 @@ class User:
             'id': self.id,
             'active': self.active
         }
-        # Here, you can use the set method with merge=True to update or create if the document doesn't exist
+
         users_ref = self.collection_ref.document(self.id)
         users_ref.set(user, merge=True)
         return user
@@ -99,7 +101,7 @@ class User:
             'id': self.id,
             'active': self.active
         }
-        # Here, you can use the set method with merge=True to update or create if the document doesn't exist
+
         users_ref = self.collection_ref.document(self.id)
         users_ref.set(user, merge=True)
         return user
@@ -109,6 +111,7 @@ class User:
         user = {
             'id': self.id
         }
+
         users_ref = self.collection_ref.document(self.id)
         users_ref.delete()
         return user
@@ -181,5 +184,4 @@ class Message:
             'messages': firestore.ArrayUnion([message_ref])
         })
 
-        # return message_ref
-        return self.id
+        return message.id
