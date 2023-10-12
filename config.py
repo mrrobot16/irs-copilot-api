@@ -10,3 +10,7 @@ APP_ENV = os.environ.get('APP_ENV')
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 OPENAI_GPT4_API_KEY = os.getenv("OPENAI_GPT4_API_KEY")
+
+TESTING = True
+
+DEBUG = True

@@ -1,5 +1,4 @@
-import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 import openai
 
 from controllers.openai import openai_controller
@@ -7,11 +6,9 @@ from controllers.firebase import firebase_controller
 from controllers.user import user_controller
 from controllers.conversation import conversation_controller
 
-
-def create_app():
-
+def create_app(config_name='config.py'):
     app = Flask(__name__)
-    app.config.from_pyfile('config.py')
+    app.config.from_pyfile(config_name)
 
     openai_api_key = app.config['OPENAI_API_KEY']
     openai.api_key = openai_api_key
