@@ -1,4 +1,3 @@
-import pytest
 from models.user import User
 from tests.fixtures.models.user import user_fixture
 from db.firebase import firestore_db
