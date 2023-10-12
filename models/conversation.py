@@ -20,24 +20,6 @@ class Conversation:
         conversation_list = [conversation.to_dict() for conversation in conversations]
         return conversation_list
     
-    """
-        def get(self, id):
-       
-
-        # Query the collection where 'id' is equal to user_id
-        users = self.collection_ref.where('id', '==', id).limit(1).stream()
-
-        # Users is an iterator of DocumentSnapshot
-        # Converting DocumentSnapshot to a dictionary
-
-        user_list = [user.to_dict() for user in users]
-        # NOTE: collection_ref.where returns an array of documents.
-        # We only want the first document in the array.
-        return user_list[0]
-    """
-
-
-
     def get(self, id):
         # NOTE: Suppress "Prefer using the 'filter' keyword argument instead." warning.
         # This happens when using collection_ref.where()
