@@ -1,6 +1,7 @@
 from utils import generate_timestamp, generate_unique_id
 from db.firebase import firestore
 from models.message import Message
+import warnings
 class Conversation:
 
     def __init__(self, db, convesation_id = None):
@@ -8,8 +9,43 @@ class Conversation:
         self.collection_ref = self.db.collection('conversations')
         self.user_collection_ref = self.db.collection('users')
         self.messages = [] # Array of Messages
+        self.active = True # boolean
         self.created_at = None # timestamp
         self.updated_at = None # timestamp
+
+    def get_all(self):
+        conversations = self.collection_ref.stream()
+
+        # Convert each DocumentSnapshot to a dictionary and add it to a list
+        conversation_list = [conversation.to_dict() for conversation in conversations]
+        return conversation_list
+    
+    """
+        def get(self, id):
+       
+
+        # Query the collection where 'id' is equal to user_id
+        users = self.collection_ref.where('id', '==', id).limit(1).stream()
+
+        # Users is an iterator of DocumentSnapshot
+        # Converting DocumentSnapshot to a dictionary
+
+        user_list = [user.to_dict() for user in users]
+        # NOTE: collection_ref.where returns an array of documents.
+        # We only want the first document in the array.
+        return user_list[0]
+    """
+
+
+
+    def get(self, id):
+        # NOTE: Suppress "Prefer using the 'filter' keyword argument instead." warning.
+        # This happens when using collection_ref.where()
+        message = "Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead."
+        warnings.filterwarnings("ignore", category=UserWarning, message=message)
+        conversations = self.collection_ref.where('id', '==', id).limit(1).stream()
+        conversation_list = [conversation.to_dict() for conversation in conversations]
+        return conversation_list[0] if conversation_list else None
 
     def new(self, user_id, message):
         self.id = generate_unique_id()
@@ -73,15 +109,37 @@ class Conversation:
 
         return message
 
+    def update(self, id, name):
+        self.id = id
+        self.name = name
+        self.updated_at = generate_timestamp()
+        conversation = {
+            'id': self.id,
+            'name': self.name,
+            'updated_at': self.updated_at
+        }
+        conversation_ref = self.collection_ref.document(self.id)
+        conversation_ref.set(conversation, merge=True)
+        return conversation
 
-    # def get_all(self, user_id):
-    #     conversations = self.collection_ref.stream()
-    #     conversations_list = []
-    #     for conversation in conversations:
-    #         conversations_list.append(conversation.to_dict())
-    #     return conversations_list
+    def deactivate(self, id):
+        self.id = id
+        self.active = False
+
+        conversation = {
+            'id': self.id,
+            'active': self.active
+        }
+        conversation_ref = self.collection_ref.document(self.id)
+        conversation_ref.set(conversation, merge=True)
+        return conversation
     
-    # def get(self, id):
-    #     conversation_ref = self.collection_ref.document(id)
-    #     conversation = conversation_ref.get().to_dict()
-    #     return conversation
+    def delete(self, id):
+        self.id = id
+
+        conversation = {
+            'id': self.id
+        }
+        conversation_ref = self.collection_ref.document(self.id)
+        conversation_ref.delete()
+        return conversation
