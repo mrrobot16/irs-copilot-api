@@ -8,6 +8,10 @@ def get_conversations():
     conversations = Conversation(firestore_db)
     return conversations.get_all()
 
+def get_conversations_by_user(user_id):
+    conversations = Conversation(firestore_db)
+    return conversations.get_all_by_user(user_id)
+
 def new_conversation(user_id, message):
     return conversation.new(user_id, message)
 

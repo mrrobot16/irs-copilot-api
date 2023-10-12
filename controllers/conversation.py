@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation
+from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user
 from services.message import new_message
 
 conversation_controller = Blueprint('conversation_', __name__)
@@ -16,6 +16,15 @@ def get_all():
     response = {
         'status': 200, 
         'data': get_conversations()
+    }
+    return jsonify(response)
+
+@conversation_controller.route('/user/<user_id>', methods=['GET'])
+def get_all_by_user(user_id):
+    response = {
+        'status': 200, 
+        'data': get_conversations_by_user(user_id)
+    
     }
     return jsonify(response)
 

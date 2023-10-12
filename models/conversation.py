@@ -2,6 +2,7 @@ from utils import generate_timestamp, generate_unique_id
 from db.firebase import firestore
 from models.message import Message
 import warnings
+
 class Conversation:
 
     def __init__(self, db, convesation_id = None):
@@ -19,12 +20,23 @@ class Conversation:
         # Convert each DocumentSnapshot to a dictionary and add it to a list
         conversation_list = [conversation.to_dict() for conversation in conversations]
         return conversation_list
-    
+
+    def get_all_by_user(self, user_id):
+        # NOTE: Suppress "Prefer using the 'filter' keyword argument instead." warning.
+        # This happens when using collection_ref.where()
+        message = "Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead."
+        warnings.filterwarnings("ignore", category=UserWarning, message=message)
+
+        conversations = self.collection_ref.where('user_id', '==', user_id).stream()
+        conversation_list = [conversation.to_dict() for conversation in conversations]
+        return conversation_list
+
     def get(self, id):
         # NOTE: Suppress "Prefer using the 'filter' keyword argument instead." warning.
         # This happens when using collection_ref.where()
         message = "Detected filter using positional arguments. Prefer using the 'filter' keyword argument instead."
         warnings.filterwarnings("ignore", category=UserWarning, message=message)
+
         conversations = self.collection_ref.where('id', '==', id).limit(1).stream()
         conversation_list = [conversation.to_dict() for conversation in conversations]
         return conversation_list[0] if conversation_list else None
