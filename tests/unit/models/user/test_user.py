@@ -4,7 +4,6 @@ import random
 from models.user import User
 from tests.fixtures.models.user import user_fixture
 from db.firebase import firestore_db
-from utils.firebase import convert_doc_refs
 
 user = User(firestore_db)
 
@@ -22,7 +21,6 @@ def test_get_all():
     assert len(users) > 0
 
 def test_new():
-    # print(user)
     new_user = user.new(user_fixture["email"], user_fixture["password"], user_fixture["conversations"])
     new_user = user.get(new_user["id"])
     assert new_user['email'] == "johndoe@example.com"

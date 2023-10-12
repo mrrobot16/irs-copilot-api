@@ -2,7 +2,6 @@ import time
 import random
 
 from db.firebase import firestore_db, firestore
-from utils.firebase import convert_doc_refs
 from services.user import get_users, new_user, get_user, update_user, delete_user, deactivate_user, activate_user
 
 emails = [
