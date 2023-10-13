@@ -23,7 +23,6 @@ def get_all_by_user(user_id):
     response = {
         'status': 200, 
         'data': get_conversations_by_user(user_id)
-    
     }
     return jsonify(response)
 
