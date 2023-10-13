@@ -1,6 +1,5 @@
 import openai
 import os
-from flask import jsonify
 
 def gpt3_completion(prompt, engine = 'gpt-3.5-turbo-16k', temp = 0.5, top_p = 0.3, tokens = 1000):
     openai_api_key = os.environ.get('OPENAI_GPT3_API_KEY')
@@ -40,8 +39,3 @@ def gpt4_completion(prompt, engine = 'gpt-4', temp = 0.5, top_p = 0.3, tokens = 
     except Exception as oops:
 
         return "GPT-4 error: %s" % oops
-    
-def conversation(prompt, response):
-    # response = gpt3_completion(prompt)
-    # return jsonify({'response': response})
-    return ''
