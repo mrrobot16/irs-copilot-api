@@ -27,11 +27,8 @@ def test_get():
     assert get_conversation['id'] == id
 
 def test_new():
-    message = random_message
-    new_conversation = conversation.new(user_id, message)
+    new_conversation = conversation.new(user_id)
     assert new_conversation['user_id'] == user_id
-    assert new_conversation['messages'][0]['content'] == message['content']
-    assert new_conversation['messages'][0]['role'] == message['role']
 
 
 def test_new_message():

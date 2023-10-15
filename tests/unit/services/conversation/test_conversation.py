@@ -21,11 +21,8 @@ def test_get_conversations_by_user():
     assert len(conversations) > 0
 
 def test_new_conversation():
-    message = random_message
-    conversation = new_conversation(user_id, message)
+    conversation = new_conversation(user_id)
     assert conversation["user_id"] == user_id
-    assert conversation["messages"][0]["content"] == message['content']
-    assert conversation["messages"][0]["role"] == message['role']
 
 
 def test_get_conversation():

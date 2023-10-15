@@ -28,8 +28,7 @@ def test_get(client):
 
 def test_new(client):
     json = {
-        "user_id": user_id,
-        "message": random_message,
+        "user_id": user_id
     }
     response = client.post(f"/conversations/new", json=json)
     assert response.status_code == 200
