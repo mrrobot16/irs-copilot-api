@@ -1,10 +1,13 @@
 {
     "name": "irs-copilot-api",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "scripts": {
-        "api": "yarn api:dev",
-        "api:dev": "yarn api-v0",
-        "api-v0": "cd packages/python/api-v0 && gunicorn --reload app:app",
-        "api-flask": "cd packages/python/api-flask && gunicorn main:app" 
+        "dev": "gunicorn --reload app:app",
+        "prod": "gunicorn --reload app:app",
+        "test:all": "yarn test:all:unit",
+        "test:all:unit": "yarn test:models:unit && yarn test:services:unit && yarn test:controllers:unit",
+        "test:models:unit": "pytest tests/unit/models",
+        "test:controllers:unit": "pytest tests/unit/controllers",
+        "test:services:unit": "pytest tests/unit/services"
     }
 }
