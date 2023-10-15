@@ -16,6 +16,15 @@ def get_conversations_by_user(user_id):
 def new_conversation(user_id, message):
     return conversation.new(user_id, message)
 
+def new_conversation_with_openai(user_id, message):
+    new_conversation = conversation.new(user_id, message)
+    openai_message = new_message_to_openai(user_id, new_conversation['id'], message)
+    return {
+        'conversation': new_conversation,
+        'user_message': message,
+        'openai_message': openai_message
+    }
+
 def new_message(user_id, conversation_id, message):
     return conversation.new_message(user_id, conversation_id, message)
 
