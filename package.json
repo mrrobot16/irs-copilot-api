@@ -4,6 +4,7 @@
     "scripts": {
         "dev": "gunicorn --reload app:app",
         "prod": "gunicorn --reload app:app",
+        "test": "yarn test:all",
         "test:all": "yarn test:all:unit",
         "test:all:unit": "yarn test:models:unit && yarn test:services:unit && yarn test:controllers:unit",
         "test:models:unit": "pytest tests/unit/models",
