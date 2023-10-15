@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user, new_message, new_message_to_openai
+from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user, new_message, new_message_to_openai, new_conversation_with_openai
 
-conversation_controller = Blueprint('conversation_', __name__)
+conversation_controller = Blueprint('conversation_controller', __name__)
 
 @conversation_controller.route('/health', methods=['GET'])
 def health():
@@ -41,6 +41,16 @@ def new():
     response = {
         'status': 200, 
         'data': new_conversation(user_id, message)
+    }
+    return jsonify(response)
+
+@conversation_controller.route('/new/openai', methods=['POST'])
+def new_conversation_openai():
+    user_id = request.get_json()['user_id']
+    message = request.get_json()['message']
+    response = {
+        'status': 200, 
+        'data': new_conversation_with_openai(user_id, message)
     }
     return jsonify(response)
 
