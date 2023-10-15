@@ -82,6 +82,7 @@ class Conversation:
         return conversation
 
     def new_message(self, user_id, conversation_id, message):
+        # print(f"open_ai_message: {message}")
         message = Message(user_id, conversation_id, message['content'], message['role'])
        
         conversation_ref = self.collection_ref.document(message.to_dict()['conversation_id'])

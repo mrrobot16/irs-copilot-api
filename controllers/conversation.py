@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user, new_message
+from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user, new_message, new_message_to_openai
 
 conversation_controller = Blueprint('conversation_', __name__)
 
@@ -51,6 +51,16 @@ def new_conversation_message(id):
     response = {
         'status': 200, 
         'data': new_message(user_id, id, message)
+    }
+    return jsonify(response)
+
+@conversation_controller.route('/message/new/openai/<id>', methods=['POST'])
+def new_conversation_message_to_openai(id):
+    user_id = request.get_json()['user_id']
+    message = request.get_json()['message']
+    response = {
+        'status': 200, 
+        'data': new_message_to_openai(user_id, id, message)
     }
     return jsonify(response)
 
