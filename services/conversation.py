@@ -13,8 +13,8 @@ def get_conversations_by_user(user_id):
     conversations = Conversation(firestore_db)
     return conversations.get_all_by_user(user_id)
 
-def new_conversation(user_id, message):
-    return conversation.new(user_id, message)
+def new_conversation(user_id):
+    return conversation.new(user_id)
 
 def new_conversation_with_openai(user_id, message):
     new_conversation = conversation.new(user_id, message)

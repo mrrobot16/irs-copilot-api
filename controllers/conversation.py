@@ -37,10 +37,9 @@ def get(id):
 @conversation_controller.route('/new', methods=['POST'])
 def new():
     user_id = request.get_json()['user_id']
-    message = request.get_json()['message']
     response = {
         'status': 200, 
-        'data': new_conversation(user_id, message)
+        'data': new_conversation(user_id)
     }
     return jsonify(response)
 

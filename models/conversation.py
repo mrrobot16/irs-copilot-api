@@ -41,7 +41,7 @@ class Conversation:
         conversation_list = [conversation.to_dict() for conversation in conversations]
         return conversation_list[0] if conversation_list else None
 
-    def new(self, user_id, message):
+    def new(self, user_id):
         self.id = generate_unique_id()
         # NOTE: User id of the user who created the conversation.
         self.user_id = user_id 
@@ -49,19 +49,6 @@ class Conversation:
         self.name = f'Conversation #:{self.id[0:2]}'
         self.created_at = generate_timestamp()
         self.updated_at = self.created_at
-
-        # NOTE: This will go away as we are moving the create new message logic outside this method.
-        # NOTE: Upon creation we need add first message(message type is 'user') which will be a Message model
-        # message = Message(self.user_id, self.id, message['content'], message['role'])
-        # message = {
-        #     'id': message.id,
-        #     'user_id': message.user_id,
-        #     'conversation_id': message.conversation_id,
-        #     'content': message.content,
-        #     'role': message.role,
-        #     'created_at': message.created_at
-        # }
-        # self.messages.append(message)
 
         conversation = {
             'id': self.id,
