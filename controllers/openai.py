@@ -6,7 +6,7 @@ from constants.openai import OPENAI_ENGINE, OPENAI_CHAT_COMPLETION_ENDPOINT_ERRO
 openai_controller = Blueprint('openai_controller', __name__)
 
 # Define routes using the blueprint
-@openai_controller.route('/')
+@openai_controller.route('/health')
 def health():
     return jsonify({'status': 'ok'})
 
