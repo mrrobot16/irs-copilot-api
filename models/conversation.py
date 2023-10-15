@@ -1,6 +1,6 @@
 from utils import generate_timestamp, generate_unique_id
 from db.firebase import firestore
-from models.message import Message
+from models.message import Message, MessageGroup
 import warnings
 
 class Conversation:
@@ -83,25 +83,21 @@ class Conversation:
 
     def new_message(self, user_id, conversation_id, message):
         message = Message(user_id, conversation_id, message['content'], message['role'])
-        message = {
-            'id': message.id,
-            'user_id': message.user_id,
-            'conversation_id': message.conversation_id,
-            'content': message.content,
-            'role': message.role,
-            'created_at': message.created_at
-        }
-
-        conversation_ref = self.collection_ref.document(message['conversation_id'])
+       
+        conversation_ref = self.collection_ref.document(message.to_dict()['conversation_id'])
         conversation_ref.update({
-            'messages': firestore.ArrayUnion([message])
+            'messages': firestore.ArrayUnion([message.to_dict()])
         })
 
         conversation_ref.update({
             'updated_at': generate_timestamp()
         })
 
-        return message
+        return message.to_dict()
+    
+    def new_message_group(self, user_id, conversation_id, messages):
+        message_group = MessageGroup(user_id, conversation_id, messages)
+        return message_group.to_dict()
 
     def update(self, id, name):
         self.id = id
