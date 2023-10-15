@@ -6,13 +6,13 @@ from services.user import get_users, new_user, get_user, update_user, delete_use
 from tests.fixtures.models.user import emails
 
 random_email = emails[random.randint(0, len(emails) - 1)]
+id = "cefece6f-3a77-493c-b"
 
 def test_get_users():
     users = get_users()
     assert len(users) > 0
 
 def test_get_user():
-    id = "0c70f67e-da6a-4c4c-b"
     user = get_user(id)
     assert user["id"] == id
 
@@ -22,19 +22,16 @@ def test_new_user():
     assert user["email"] == "testing_new_user_service@testing.com"
 
 def test_update_user():
-    id = "638e98f0-de21-4f24-b"
     email = random_email
     user = update_user(id, email)
     assert user["email"] == email
 
 def test_deactivate_user():
-    id = "638e98f0-de21-4f24-b"
     user = deactivate_user(id)
     assert user["active"] == False
 
 def test_activate_user():
     time.sleep(3)
-    id = "638e98f0-de21-4f24-b"
     user = activate_user(id)
     assert user["active"] == True
 

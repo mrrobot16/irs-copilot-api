@@ -7,6 +7,8 @@ from tests.fixtures.models.user import emails
 
 random_email = emails[random.randint(0, len(emails) - 1)]
 
+user_id = "cefece6f-3a77-493c-b"
+
 def test_health(client):
     response = client.get("/users/health")
     assert response.status_code == 200
@@ -16,7 +18,6 @@ def test_get_all(client):
     assert response.status_code == 200
 
 def test_get(client):
-    user_id = "8643a936-3a4e-454b-a"
     response = client.get(f"/users/{user_id}")
     assert response.status_code == 200
 
@@ -30,7 +31,6 @@ def test_new(client):
     assert response.status_code == 200
 
 def test_update(client):
-    user_id = "8643a936-3a4e-454b-a"
     json = {
         "email": random_email,
     }
@@ -38,12 +38,10 @@ def test_update(client):
     assert response.status_code == 200
 
 def test_deactivate(client):
-    user_id = "8643a936-3a4e-454b-a"
     response = client.put(f"/users/deactivate/{user_id}")
     assert response.status_code == 200
 
 def test_activate(client):
     time.sleep(3)
-    user_id = "8643a936-3a4e-454b-a"
     response = client.put(f"/users/activate/{user_id}")
     assert response.status_code == 200
