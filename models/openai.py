@@ -27,5 +27,5 @@ class OpenAI:
             )
             print(f"response: {response}")
             return response['choices'][0]['message']['content']
-        except Exception as oops:
-            return "chat_completion error: %s" % oops
+        except Exception as error:
+            return f"chat_completion error: {error}"
