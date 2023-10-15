@@ -48,9 +48,12 @@ def new():
 def new_conversation_openai():
     user_id = request.get_json()['user_id']
     message = request.get_json()['message']
+    data = new_conversation_with_openai(user_id, message)
     response = {
         'status': 200, 
-        'data': new_conversation_with_openai(user_id, message)
+        'conversation': data['conversation'],
+        'openai_message': data['openai_message'],
+        'user_message': data['user_message']
     }
     return jsonify(response)
 
