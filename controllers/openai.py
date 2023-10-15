@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-# from services.openai import gpt3_completion, gpt4_completion
 from services.openai import chat_completion
+from constants.openai import OPENAI_ENGINE, OPENAI_CHAT_COMPLETION_ENDPOINT_ERROR
 
 # # Create a blueprint instance
 openai_controller = Blueprint('openai_controller', __name__)
@@ -12,6 +12,12 @@ def health():
 
 @openai_controller.route('/chat-completion', methods=['POST'])
 def chat():
-    prompt = request.get_json()['prompt']
-    response = chat_completion(prompt)
-    return jsonify({'response': response})
+    data = request.get_json()
+    prompt = data.get('prompt', None)
+    engine = data.get('engine', None)
+    if prompt is None:
+        error = OPENAI_CHAT_COMPLETION_ENDPOINT_ERROR, OPENAI_CHAT_COMPLETION_ENDPOINT_ERROR['status_code']
+        return jsonify(error)
+    else:
+        response = chat_completion(prompt, engine)
+        return jsonify({'response': response})
