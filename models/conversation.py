@@ -50,17 +50,18 @@ class Conversation:
         self.created_at = generate_timestamp()
         self.updated_at = self.created_at
 
+        # NOTE: This will go away as we are moving the create new message logic outside this method.
         # NOTE: Upon creation we need add first message(message type is 'user') which will be a Message model
-        message = Message(self.user_id, self.id, message['content'], message['role'])
-        message = {
-            'id': message.id,
-            'user_id': message.user_id,
-            'conversation_id': message.conversation_id,
-            'content': message.content,
-            'role': message.role,
-            'created_at': message.created_at
-        }
-        self.messages.append(message)
+        # message = Message(self.user_id, self.id, message['content'], message['role'])
+        # message = {
+        #     'id': message.id,
+        #     'user_id': message.user_id,
+        #     'conversation_id': message.conversation_id,
+        #     'content': message.content,
+        #     'role': message.role,
+        #     'created_at': message.created_at
+        # }
+        # self.messages.append(message)
 
         conversation = {
             'id': self.id,
@@ -82,7 +83,6 @@ class Conversation:
         return conversation
 
     def new_message(self, user_id, conversation_id, message):
-        # print(f"open_ai_message: {message}")
         message = Message(user_id, conversation_id, message['content'], message['role'])
        
         conversation_ref = self.collection_ref.document(message.to_dict()['conversation_id'])
