@@ -10,6 +10,8 @@
         "test:models:unit": "pytest tests/unit/models",
         "test:controllers:unit": "pytest tests/unit/controllers",
         "test:services:unit": "pytest tests/unit/services",
+        "test:user": "pytest tests/unit/models/user && pytest tests/unit/services/user && pytest tests/unit/controllers/user", 
+        "test:conversation": "pytest tests/unit/models/conversation && pytest tests/unit/services/conversation && pytest tests/unit/controllers/conversation",
         "test:openai": "pytest tests/unit/models/openai && pytest tests/unit/services/openai && pytest tests/unit/controllers/openai"
     }
 }

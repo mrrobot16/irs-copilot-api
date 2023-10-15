@@ -9,17 +9,18 @@ messages = conversation_fixture["messages"]
 random_message = messages[random.randint(0, len(messages) - 1)]
 random_new_message =  messages[random.randint(0, len(messages) - 1)]
 
+id = "7ba4cca9-4115-4a5d-a"
+user_id = "cefece6f-3a77-493c-b"
+
 def test_get_conversations():
     conversations = get_conversations()
     assert len(conversations) > 0
 
 def test_get_conversations_by_user():
-    user_id = "0c70f67e-da6a-4c4c-b"
     conversations = get_conversations_by_user(user_id)
     assert len(conversations) > 0
 
 def test_new_conversation():
-    user_id = "0c70f67e-da6a-4c4c-b"
     message = random_message
     conversation = new_conversation(user_id, message)
     assert conversation["user_id"] == user_id
@@ -28,27 +29,22 @@ def test_new_conversation():
 
 
 def test_get_conversation():
-    id = '26385545-bb6f-4158-a'
     conversation = get_conversation(id)
     assert conversation["id"] == id
 
 def test_new_message():
-    conversation_id = '26385545-bb6f-4158-a'
-    user_id = "0c70f67e-da6a-4c4c-b"
-    message = new_message(user_id, conversation_id, random_new_message)
+    message = new_message(user_id, id, random_new_message)
     assert message["user_id"] == user_id
-    assert message['conversation_id'] == conversation_id
+    assert message['conversation_id'] == id
     assert message['content'] == message['content']
     assert message['role'] == message['role']
 
 def test_update_conversation():
-    id = '26385545-bb6f-4158-a'
     update_conversation(id, "New Conversation name")
     conversation = get_conversation(id)
     assert conversation['name'] == "New Conversation name"
 
 def test_deactivate():
-    id = '26385545-bb6f-4158-a'
     deactivate_conversation(id)
     conversation = get_conversation(id)
     assert conversation['active'] == False
