@@ -5,6 +5,8 @@ from controllers.user import user_controller
 from controllers.conversation import conversation_controller
 from flask import jsonify
 
+allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app', 'http://localhost:3000']
+
 def register(app):
     @app.route('/')
     def health():

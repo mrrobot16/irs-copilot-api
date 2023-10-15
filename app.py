@@ -2,12 +2,12 @@ from flask import Flask, jsonify
 import openai
 from flask_cors import CORS
 
-from routes import register
+from routes import register, allowed_origins
 
 def create_app(config_name='config.py'):
     app = Flask(__name__)
     app.config.from_pyfile(config_name)
-    CORS(app, origins=["http://localhost:3000"])
+    CORS(app, origins = allowed_origins)
     return register(app)
 
 
