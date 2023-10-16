@@ -1,8 +1,8 @@
 # register.py
 
 from controllers.openai import openai_controller
-# from controllers.user import user_controller
-# from controllers.conversation import conversation_controller
+from controllers.user import user_controller
+from controllers.conversation import conversation_controller
 from flask import jsonify
 
 allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app', 'http://localhost:3000']
