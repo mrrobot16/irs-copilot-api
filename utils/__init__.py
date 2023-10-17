@@ -2,6 +2,8 @@ import uuid
 from datetime import datetime
 import bcrypt
 
+from config import FIREBASE_CREDENTIALS
+
 # Generate a unique ID
 def generate_unique_id(size=20):
     return str(uuid.uuid4())[:size]
@@ -19,3 +21,7 @@ def hash_password(plain_text_password):
 # Check the provided password against the hashed one
 def verify_hashed_password(plain_text_password, hashed_password):
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_password)
+
+def log_firebase_credentials(field = 'type'):
+    print("len(FIREBASE_CREDENTIALS)", len(FIREBASE_CREDENTIALS['private_key']))
+    print(f'FIREBASE_CREDENTIALS[{field}]', FIREBASE_CREDENTIALS[field])
