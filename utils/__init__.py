@@ -23,5 +23,5 @@ def verify_hashed_password(plain_text_password, hashed_password):
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_password)
 
 def log_firebase_credentials(field = 'type'):
-    print("len(FIREBASE_CREDENTIALS)", len(FIREBASE_CREDENTIALS['private_key']))
+    print("len(FIREBASE_CREDENTIALS['private_key'])", len(FIREBASE_CREDENTIALS['private_key']))
     print(f'FIREBASE_CREDENTIALS[{field}]', FIREBASE_CREDENTIALS[field])
