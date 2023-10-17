@@ -13,7 +13,7 @@ def register(app):
         return jsonify({'status': 'ok'})
 
     app.register_blueprint(openai_controller, url_prefix='/openai')
-    # app.register_blueprint(user_controller, url_prefix='/users')
-    # app.register_blueprint(conversation_controller, url_prefix='/conversations')
+    app.register_blueprint(user_controller, url_prefix='/users')
+    app.register_blueprint(conversation_controller, url_prefix='/conversations')
 
     return app
