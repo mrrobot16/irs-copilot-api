@@ -1,6 +1,7 @@
 from db.firebase import firestore
+from config import FIREBASE_CREDENTIALS
 
-# NOTE: Recursively convert Fireabase DocumentReference objects in a nested data structure to dictionaries.
+# NOTE: Recursively convert Firebase DocumentReference objects in a nested data structure to dictionaries.
 def convert_doc_refs(doc_refs):
     if isinstance(doc_refs, firestore.DocumentReference):
         # Fetch the actual document data if you want
@@ -21,3 +22,11 @@ def convert_doc_refs(doc_refs):
     else:
         # For any other type, return the doc_refs as is
         return doc_refs
+
+def log_firebase_credentials(field = 'type'):
+    print("************************************")
+    print("len(FIREBASE_CREDENTIALS['private_key'])")
+    print(len(FIREBASE_CREDENTIALS[f'{field}']))
+    print("************************************")
+    print(FIREBASE_CREDENTIALS[f'{field}'])
+    print("************************************")
