@@ -5,7 +5,7 @@ OPENAI_SYSTEM_PROMPT = {
 
 OPENAI_ASSISTANT_PROMPT = {
     "role": "assistant",
-    "content": "I will respond all IRS related questions based on the forms that exist on the IRS website. Please type your question."
+    "content": "I will respond all IRS related questions based on the forms that exist on the IRS website. Please type your question. All my anwsers will be in the format of html tags."
 }
 
 OPENAI_USER_PROMPT = {
