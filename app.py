@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-import openai
 
 from routes import register, allowed_origins
 
