@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify, request
+
+from decorators import app_enabled_required
 from services.conversation import get_conversations, get_conversation, new_conversation, update_conversation, deactivate_conversation, delete_conversation, get_conversations_by_user, new_message, new_message_to_openai, new_conversation_with_openai
 
 conversation_controller = Blueprint('conversation_controller', __name__)
@@ -44,6 +46,7 @@ def new():
     return jsonify(response)
 
 @conversation_controller.route('/new/openai', methods=['POST'])
+@app_enabled_required
 def new_conversation_openai():
     user_id = request.get_json()['user_id']
     message = request.get_json()['message']
@@ -67,6 +70,7 @@ def new_conversation_message(id):
     return jsonify(response)
 
 @conversation_controller.route('/message/new/openai/<id>', methods=['POST'])
+@app_enabled_required
 def new_conversation_message_to_openai(id):
     user_id = request.get_json()['user_id']
     message = request.get_json()['message']
