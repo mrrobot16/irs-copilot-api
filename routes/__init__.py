@@ -1,11 +1,17 @@
-# register.py
+from flask import jsonify, request
 
 from controllers.openai import openai_controller
 from controllers.user import user_controller
 from controllers.conversation import conversation_controller
-from flask import jsonify
+from config import APP_ENV
 
-allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app', 'http://localhost:3000']
+allowed_origins = []
+# allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app', 'http://localhost:3000']
+
+if APP_ENV == 'production':
+    allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app']
+elif APP_ENV == 'development':
+    allowed_origins = ['http://localhost:3000']
 
 def register(app):
     @app.route('/')
