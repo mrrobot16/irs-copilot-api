@@ -2,8 +2,8 @@
     "name": "irs-copilot-api",
     "license": "MIT",
     "scripts": {
-        "dev": "gunicorn --reload app:app",
-        "prod": "gunicorn --reload app:app",
+        "dev": "gunicorn --access-logfile '-' --error-logfile '-' --log-level info --reload app:app",
+        "prod": "gunicorn --access-logfile '-' --error-logfile '-' --log-level info app:app",
         "push": "git push origin dev",
         "deploy": "git push heroku dev:master",
         "logs":"heroku logs --tail", 
