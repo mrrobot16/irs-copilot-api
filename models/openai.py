@@ -12,9 +12,9 @@ class OpenAI:
         self.max_tokens = max_tokens
         openai.api_key = self.keys
 
-    def chat_completion(self, user_prompt = OPENAI_USER_PROMPT['content'], system_prompt = OPENAI_SYSTEM_PROMPT, assistant_prompt = OPENAI_ASSISTANT_PROMPT): 
+    def chat_completion(self, prompt = OPENAI_USER_PROMPT['content'], system_prompt = OPENAI_SYSTEM_PROMPT, assistant_prompt = OPENAI_ASSISTANT_PROMPT): 
         self.created_at = generate_timestamp()
-        user_prompt = user_prompt.encode(encoding = 'ASCII', errors = 'ignore').decode()
+        user_prompt = prompt.encode(encoding = 'ASCII', errors = 'ignore').decode() + ". " + OPENAI_USER_PROMPT['content']
         try:
             openai_response = openai.ChatCompletion.create(
                 model = self.engine,
