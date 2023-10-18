@@ -7,6 +7,8 @@ load_dotenv(dotenv_path)
 
 APP_ENV = os.environ.get('APP_ENV')
 
+APP_ENABLED = True if os.environ.get('APP_ENABLED') == "True" else False
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 OPENAI_GPT4_API_KEY = os.getenv("OPENAI_GPT4_API_KEY")
