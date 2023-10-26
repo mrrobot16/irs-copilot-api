@@ -9,6 +9,6 @@ def app_enabled_required(func):
         if APP_ENABLED:
             return func(*args, **kwargs)
         else:
-            return jsonify({"error": "This endpoint is not available."}), 503
+            return jsonify({"error": "This endpoint is not available.", "status": 503 }), 503
 
     return wrapper
