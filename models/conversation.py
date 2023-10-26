@@ -71,17 +71,15 @@ class Conversation:
 
     def new_message(self, user_id, conversation_id, message):
         message = Message(user_id, conversation_id, message['content'], message['role'])
-       
-        conversation_ref = self.collection_ref.document(message.to_dict()['conversation_id'])
-        conversation_ref.update({
-            'messages': firestore.ArrayUnion([message.to_dict()])
-        })
-
-        conversation_ref.update({
-            'updated_at': generate_timestamp()
-        })
-
-        return message.to_dict()
+        try:
+            conversation_ref = self.collection_ref.document(message.to_dict()['conversation_id'])
+            conversation_ref.update({
+                'messages': firestore.ArrayUnion([message.to_dict()])
+            })         
+            return message.to_dict()
+        except Exception as error:
+            print('error in model/conversation.py/new_message:', error)
+            return error
     
     def new_message_group(self, user_id, conversation_id, messages):
         message_group = MessageGroup(user_id, conversation_id, messages)
