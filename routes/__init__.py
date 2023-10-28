@@ -10,7 +10,14 @@ allowed_origins = []
 # allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app', 'http://localhost:3000']
 
 if APP_ENV == 'production':
-    allowed_origins = ['https://irs-copilot.vercel.app/', 'https://irs-copilot.vercel.app']
+    allowed_origins = [
+        'https://irs-copilot.vercel.app/', 
+        'https://irs-copilot.vercel.app', 
+        'https://www.taxapp.chat', 
+        'http://www.taxapp.chat',
+        'https://app.taxapp.chat',
+        'http://app.taxapp.chat'
+    ]
 elif APP_ENV == 'development':
     allowed_origins = ['http://localhost:3000']
 
