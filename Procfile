@@ -1,1 +1,1 @@
-web: gunicorn --access-logfile '-' --error-logfile '-' --log-level info -w 1 -t 120 app:app
+web: gunicorn --access-logfile '-' --error-logfile '-' --log-level info -w 2 -t 120 app:app
